@@ -1,5 +1,4 @@
-import NextAuth, { type Account, type Session, type UserInfo } from "next-auth";
-import type { JWT } from "next-auth/jwt";
+import NextAuth, { type Session, type UserInfo } from "next-auth";
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
 
 const USERINFO_URL = "https://api.epfl.ch/v2/oidc/userinfo?accreds";
@@ -42,7 +41,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   callbacks: {
     authorized: async ({ auth }) => !!auth,
 
-    jwt: async ({ token, account }: { token: JWT; account?: Account | null }) => {
+    jwt: async ({ token, account }) => {
       try {
         if (account?.access_token && account?.id_token) {
           const [accessToken, idToken, userInfo] = await Promise.all([
@@ -53,7 +52,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           return {
             ...token,
-            expires_at: account.expires_at,
+            expires_at: account.expires_at as number,
             oid: idToken.oid,
             tid: accessToken.tid,
             email: idToken.email,
@@ -85,6 +84,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         name: token.name,
         userId: token.uniqueId,
         username: token.username,
+        oid: token.oid,
+        tid: token.tid,
         groups: token.groups ?? [],
         accreds: token.accreds ?? [],
       },

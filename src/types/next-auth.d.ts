@@ -12,6 +12,7 @@ declare module "next-auth" {
       oid: string;
       tid: string;
       groups: string[];
+      accreds: string[];
     } & DefaultSession["user"];
     expires: string;
   }
@@ -39,6 +40,7 @@ declare module "next-auth/jwt" {
     uniqueId: string;
     username: string;
     groups: string[];
+    accreds: string[];
     error?: string;
   }
 }
