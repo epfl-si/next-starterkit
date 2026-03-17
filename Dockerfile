@@ -1,26 +1,25 @@
 # ─── deps ────────────────────────────────────────────────────────────────────
-FROM oven/bun:1-alpine AS deps
+FROM oven/bun:1-slim AS deps
 WORKDIR /app
-RUN apk add --no-cache libc6-compat
-COPY package.json bun.lockb* ./
+COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile
 
 # ─── builder ─────────────────────────────────────────────────────────────────
-FROM oven/bun:1-alpine AS builder
+FROM oven/bun:1-slim AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ENV NEXT_TELEMETRY_DISABLED=1
-RUN bun run build
+RUN node node_modules/.bin/next build
 
 # ─── runner ──────────────────────────────────────────────────────────────────
-FROM oven/bun:1-alpine AS runner
+FROM oven/bun:1-slim AS runner
 WORKDIR /app
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-COPY package.json bun.lockb* ./
+COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile --production && \
     bun pm cache rm
 
