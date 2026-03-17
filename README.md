@@ -32,8 +32,8 @@ Open [http://localhost:3000](http://localhost:3000).
 | Variable | Description |
 |---|---|
 | `AUTH_SECRET` | Random secret for Auth.js session encryption (`openssl rand -base64 32`) |
-| `ENTRA_ID` | Azure AD application (client) ID |
-| `ENTRA_SECRET` | Azure AD client secret |
+| `ENTRA_ID` | EntraID application (client) ID |
+| `ENTRA_SECRET` | EntraID client secret |
 | `ENTRA_ISSUER` | `https://login.microsoftonline.com/<tenant-id>/v2.0` |
 
 ## Scripts
