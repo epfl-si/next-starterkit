@@ -18,7 +18,5 @@ export default async function proxy(req: NextRequest) {
 }
 
 export const config = {
-  matcher: [
-    "/((?!api/auth|error|_next/static|_next/image|favicon.ico|.*\\.[a-zA-Z]+$).*)",
-  ],
+  matcher: ["/((?!api/auth|error|_next/static|_next/image|favicon.ico|.*\\.[a-zA-Z]+$).*)"],
 };
