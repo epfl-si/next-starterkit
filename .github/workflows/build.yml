@@ -6,6 +6,7 @@ on:
 
 env:
     REGISTRY_PATH: ghcr.io/${{ github.repository }}
+    FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
 jobs:
     code-quality:

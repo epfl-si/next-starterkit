@@ -16,8 +16,8 @@ RUN node node_modules/.bin/next build
 FROM oven/bun:1-slim AS runner
 WORKDIR /app
 
-RUN addgroup --system --gid 1001 nodejs && \
-    adduser --system --uid 1001 nextjs
+RUN groupadd --system --gid 1001 nodejs && \
+    useradd --system --uid 1001 --gid nodejs nextjs
 
 COPY package.json bun.lock* ./
 RUN bun install --frozen-lockfile --production && \
