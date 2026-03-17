@@ -56,7 +56,14 @@ export default async function Home() {
           </div>
         </div>
         <div className="flex-1 flex justify-center lg:justify-end">
-          <Image src="/fly.png" alt="Starter kit illustration" width={420} height={420} className="w-64 lg:w-105 drop-shadow-2xl" priority />
+          <Image
+            src="/fly.png"
+            alt="Starter kit illustration"
+            width={420}
+            height={420}
+            className="w-64 lg:w-105 drop-shadow-2xl"
+            priority
+          />
         </div>
       </section>
 

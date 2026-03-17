@@ -34,10 +34,16 @@ export const Footer: React.FC = () => {
             </ul>
             <div className="mt-6 border-t pt-4 flex flex-col md:flex-row md:items-center md:justify-between">
               <div className="flex flex-wrap gap-4 text-sm mb-2">
-                <Link href="https://www.epfl.ch/about/overview/fr/reglements-et-directives/mentions-legales/" className="hover:underline">
+                <Link
+                  href="https://www.epfl.ch/about/overview/fr/reglements-et-directives/mentions-legales/"
+                  className="hover:underline"
+                >
                   {translations.footer("accessibility")}
                 </Link>
-                <Link href="https://www.epfl.ch/about/overview/fr/reglements-et-directives/mentions-legales/" className="hover:underline">
+                <Link
+                  href="https://www.epfl.ch/about/overview/fr/reglements-et-directives/mentions-legales/"
+                  className="hover:underline"
+                >
                   {translations.footer("disclaimer")}
                 </Link>
                 <Link href="https://go.epfl.ch/protection-des-donnees/" className="hover:underline">
@@ -46,7 +52,10 @@ export const Footer: React.FC = () => {
               </div>
               <div className="flex flex-wrap gap-4 text-sm mb-2">
                 <p className="text-xs text-gray-500 mt-2">{translations.app("title")}</p>
-                <Link className="text-xs text-gray-500 mt-2" href={`https://github.com/epfl-si/next-starterkit/releases/tag/v${version}`}>
+                <Link
+                  className="text-xs text-gray-500 mt-2"
+                  href={`https://github.com/epfl-si/next-starterkit/releases/tag/v${version}`}
+                >
                   v{version}
                 </Link>
                 <p className="text-xs text-gray-500 mt-2"> © 2026 EPFL - {translations.footer("allRightsReserved")}</p>

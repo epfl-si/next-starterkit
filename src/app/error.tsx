@@ -5,7 +5,13 @@ import { useTranslations } from "next-intl";
 import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 
-export default function ErrorPage({ error, reset }: { error?: globalThis.Error & { digest?: string }; reset?: () => void }) {
+export default function ErrorPage({
+  error,
+  reset,
+}: {
+  error?: globalThis.Error & { digest?: string };
+  reset?: () => void;
+}) {
   const translations = {
     error: useTranslations("errors.generic"),
     actions: useTranslations("actions"),
@@ -44,7 +50,11 @@ export default function ErrorPage({ error, reset }: { error?: globalThis.Error &
               {translations.actions("retry")}
             </Button>
           )}
-          <Button variant="outline" onClick={() => (window.location.href = "/")} className="flex items-center gap-2 cursor-pointer">
+          <Button
+            variant="outline"
+            onClick={() => (window.location.href = "/")}
+            className="flex items-center gap-2 cursor-pointer"
+          >
             <Home className="h-4 w-4" />
             {translations.actions("backToHome")}
           </Button>

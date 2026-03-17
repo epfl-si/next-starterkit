@@ -38,7 +38,9 @@ export default async function Dashboard() {
         <div className="space-y-8">
           {/* Identity */}
           <section className="space-y-1">
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{translations.dashboard("fieldName")}</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+              {translations.dashboard("fieldName")}
+            </h2>
             <p className="text-2xl font-bold">{user.name ?? "—"}</p>
             <p className="text-muted-foreground">{user.email ?? "—"}</p>
             <p className="text-sm text-muted-foreground font-mono">
@@ -49,7 +51,9 @@ export default async function Dashboard() {
 
           {/* Groups */}
           <section>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{translations.dashboard("groups")}</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+              {translations.dashboard("groups")}
+            </h2>
             {user.groups?.length > 0 ? (
               <ul className="space-y-1">
                 {user.groups.map((group) => (
@@ -65,7 +69,9 @@ export default async function Dashboard() {
 
           {/* Accreditations */}
           <section>
-            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">{translations.dashboard("accreds")}</h2>
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground mb-3">
+              {translations.dashboard("accreds")}
+            </h2>
             {parsedAccreds.length > 0 ? (
               <ul className="space-y-4">
                 {parsedAccreds.map((accred) => (
@@ -87,9 +93,13 @@ export default async function Dashboard() {
         {/* Right — raw session */}
         <div className="rounded-xl border bg-card shadow-sm overflow-hidden">
           <div className="px-4 py-3 border-b bg-muted/30">
-            <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">{translations.dashboard("rawSession")}</span>
+            <span className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+              {translations.dashboard("rawSession")}
+            </span>
           </div>
-          <pre className="p-4 text-xs leading-relaxed overflow-auto max-h-[560px] text-muted-foreground">{JSON.stringify(session, null, 2)}</pre>
+          <pre className="p-4 text-xs leading-relaxed overflow-auto max-h-[560px] text-muted-foreground">
+            {JSON.stringify(session, null, 2)}
+          </pre>
         </div>
       </div>
     </div>
