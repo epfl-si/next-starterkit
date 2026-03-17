@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect } from "react";
-import { AlertTriangle, RefreshCw, Home } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { AlertTriangle, Home, RefreshCw } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { useEffect } from "react";
+import { Button } from "@/components/ui/button";
 
-export default function Error({ error, reset }: { error?: Error & { digest?: string }; reset?: () => void; }) {
+export default function Error({ error, reset }: { error?: globalThis.Error & { digest?: string }; reset?: () => void }) {
     const translations = {
         error: useTranslations("errors.generic"),
         actions: useTranslations("actions"),
