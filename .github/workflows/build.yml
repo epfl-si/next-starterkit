@@ -32,7 +32,7 @@ jobs:
 
             - name: Upload lint report
               if: always()
-              uses: actions/upload-artifact@v5
+              uses: actions/upload-artifact@v7
               with:
                   name: biome-lint-report
                   path: biome-report.json
