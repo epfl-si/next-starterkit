@@ -20,8 +20,8 @@ A production-ready Next.js starter for EPFL applications, with Microsoft Entra I
 
 ```bash
 bun install
-cp .env.example .env.local
-# fill in .env.local
+cp .env.example .env
+# fill in .env
 bun dev
 ```
 
