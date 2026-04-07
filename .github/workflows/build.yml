@@ -120,26 +120,40 @@ jobs:
 
             - name: Generate release notes
               run: |
+                  set -x
                   VERSION="${{ needs.detect-version.outputs.version }}"
                   LAST_TAG=$(git describe --tags --abbrev=0 2>/dev/null || echo "")
                   LOG_RANGE="${LAST_TAG:+${LAST_TAG}..HEAD}"
-
                   COMMITS=$(git log ${LOG_RANGE} --oneline --pretty=format:"%h %s")
                   COUNT=$(git rev-list ${LOG_RANGE:-HEAD} --count)
+                  AUTHORS=$(git log ${LOG_RANGE} --pretty=format:"%an" | sort -u | sed 's/.*$/`&`/' | paste -sd ',' | sed 's/,/, /g')
 
-                  echo "Release v$VERSION — $COUNT commits." > notes.md
+                  if [ -z "$LAST_TAG" ]; then
+                  echo "Initial release v$VERSION with $COUNT commits by $AUTHORS." > notes.md
+                  else
+                  echo "Release v$VERSION includes $COUNT commits since $LAST_TAG by $AUTHORS." > notes.md
+                  fi
+
+                  PATTERNS="feature|add|fix|bugfix|hotfix|refactor|chore|perf|update|version|docs|doc"
 
                   section() {
                     local title=$1 pattern=$2
                     local matches
-                    matches=$(grep -iE "^\S+ \[${pattern}\]" <<< "$COMMITS" | sed 's/^/- /') || return 0
-                    printf "\n### %s\n%s\n" "$title" "$matches" >> notes.md
+                    set +e
+                    matches=$(grep -iE "^\S+ \[(${pattern})\]" <<< "$COMMITS" | sed 's/^/- /')
+                    set -e
+                    [[ -n "$matches" ]] && printf "\n### %s\n%s\n" "$title" "$matches" >> notes.md || true
                   }
 
                   section "✨ Features"       "feature|add"
                   section "🐛 Bug Fixes"      "fix|bugfix|hotfix"
                   section "🔧 Maintenance"    "refactor|chore|perf|update|version"
                   section "📚 Documentation"  "docs|doc"
+
+                  set +e
+                  OTHER=$(grep -ivE "^\S+ \[(${PATTERNS})\]" <<< "$COMMITS" | sed 's/^/- /')
+                  set -e
+                  [ -n "$OTHER" ] && printf "\n### 📦 Other\n%s\n" "$OTHER" >> notes.md || true
 
             - name: Create GitHub Release
               env:
