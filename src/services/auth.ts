@@ -1,5 +1,6 @@
 import NextAuth, { type Session, type UserInfo } from "next-auth";
 import MicrosoftEntraID from "next-auth/providers/microsoft-entra-id";
+import { prisma } from "@/lib/prisma";
 
 const USERINFO_URL = "https://api.epfl.ch/v2/oidc/userinfo?accreds";
 
@@ -50,6 +51,14 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             getUserInfo(account.access_token),
           ]);
 
+          const name = `${idToken.given_name} ${idToken.family_name}`;
+
+          await prisma.user.upsert({
+            where: { oid: idToken.oid },
+            update: { email: idToken.email, username: idToken.gaspar, name },
+            create: { oid: idToken.oid, email: idToken.email, username: idToken.gaspar, name },
+          });
+
           return {
             ...token,
             expires_at: account.expires_at as number,
@@ -61,7 +70,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             username: idToken.gaspar,
             groups: idToken.groups || [],
             accreds: userInfo?.accreds || [],
-            name: `${idToken.given_name} ${idToken.family_name}`,
+            name,
           };
         }
 
