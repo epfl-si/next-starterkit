@@ -4,7 +4,7 @@
   "private": true,
   "packageManager": "bun@1.2.5",
   "scripts": {
-    "dev": "docker run -d --name jdt-manager-db -p 54321:5432 -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=postgres -e POSTGRES_DB=dev -v jdt-manager-db:/var/lib/postgresql/data postgres:17-alpine 2>/dev/null; bunx prisma generate && next dev",
+    "dev": "docker run -d --name --rm $npm_package_name-db -p 37874:5432 -e POSTGRES_USER=app -e POSTGRES_PASSWORD=password -e POSTGRES_DB=dev -v $npm_package_name-db:/var/lib/postgresql/data postgres:18-alpine 2>/dev/null; bunx prisma generate && next dev",
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
